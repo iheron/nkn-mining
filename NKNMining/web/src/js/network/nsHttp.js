@@ -33,6 +33,17 @@ function setWallet(scope, walletInfo, reqKey, success, fail) {
   return axiosRequest(scope, '/set/wallet', setWalletData.encryptedData(reqKey), success, fail)
 }
 
+function getWalletConfig(scope, success = null, fail = null) {
+  return axiosRequest(scope, "/get/wallet/config", {}, success, fail)
+}
+
+function setWalletConfig(scope, walletInfo, reqKey, success, fail) {
+  let setWalletData = new RequestData()
+
+  setWalletData.setData(walletInfo)
+  return axiosRequest(scope, '/set/wallet/config', setWalletData.encryptedData(reqKey), success, fail)
+}
+
 function startMining(scope, reqKey, success, fail) {
   let startMiningData = new RequestData()
 
@@ -86,6 +97,8 @@ export default {
   getStatus,
   getVersion,
   setWallet,
+  getWalletConfig,
+  setWalletConfig,
   startMining,
   stopMining,
   resetShell,

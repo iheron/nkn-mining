@@ -4,6 +4,8 @@ const WALLET_KEY = 'ns_wallet_key'
 const WALLET = 'ns_wallet'
 const WALLET_ADDRESS = 'ns_wallet_address'
 
+const WALLET_CONFIG = 'ns_wallet_config'
+const WALLET_AUTO_TRANSFER = 'ns_wallet_auto_transfer'
 const LANG = 'ns_lang'
 
 
@@ -30,6 +32,22 @@ let getWallet = function () {
 
 let getWalletAddress = function () {
   return window.localStorage.getItem(WALLET_ADDRESS)
+}
+
+let setWalletConfig = function (config) {
+  window.localStorage.setItem(WALLET_CONFIG, config)
+}
+
+let getWalletConfig = function () {
+  return window.localStorage.getItem(WALLET_CONFIG)
+}
+
+let setWalletAutoTransfer = function (config) {
+  window.localStorage.setItem(WALLET_AUTO_TRANSFER, config)
+}
+
+let getWalletAutoTransfer = function () {
+  return window.localStorage.getItem(WALLET_AUTO_TRANSFER)
 }
 
 let clear = function () {
@@ -72,7 +90,10 @@ export default {
   setWallet,
   getWallet,
   getWalletAddress,
-
+  setWalletConfig,
+  getWalletConfig,
+  setWalletAutoTransfer,
+  getWalletAutoTransfer,
   setLanguage,
   getLanguage,
 

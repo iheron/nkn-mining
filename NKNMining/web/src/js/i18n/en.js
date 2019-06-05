@@ -89,6 +89,12 @@ module.exports = {
       downloadbtn: 'download',
       transferbtn: 'transfer',
       addressLabel: 'Address',
+      beneficiaryStatus: 'Beneficiary address:',
+      beneficiaryLabel: 'Beneficiary',
+      autoTransferBtn: 'Auto transfer',
+      autoTransferStopBtn: 'Stop',
+      beneficiaryAddrPlaceholder: 'Beneficiary address then click auto transfer',
+      autoTransferTip: 'Click Auto transfer to turn this feature on.',
       balance: {
         init: 'Querying balance ...'
       },

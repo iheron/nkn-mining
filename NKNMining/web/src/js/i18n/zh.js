@@ -84,6 +84,12 @@ module.exports = {
       downloadbtn: '下载',
       transferbtn: '转账',
       addressLabel: '地址',
+      beneficiaryStatus: '受益人地址：',
+      beneficiaryLabel: '受益人',
+      autoTransferBtn: '自动转账',
+      autoTransferStopBtn: '停止',
+      beneficiaryAddrPlaceholder: '填写收益人后点击自动转账',
+      autoTransferTip: '点击自动转账以开启此功能.',
       balance: {
         init: '正在查询余额 ...'
       },
