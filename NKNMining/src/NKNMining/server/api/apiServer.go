@@ -13,6 +13,8 @@ var (
 		GetStatusAPI,
 		GetVersionAPI,
 		SetWalletAPI,
+		SetWalletConfigAPI,
+		GetWalletConfigAPI,
 		StartNodeAPI,
 		StopNodeAPI,
 		ResetShellAPI,
