@@ -6,7 +6,7 @@
                 <ns-input-item v-if="showInput(idx)" :config="inputItem" />
             </div>
             <div class="setup-button nkn-after-clear nkn-wallet-setup-button-panel">
-                <a class="nkn-link-load-wallet" @click="toLoadWallet">{{$t("nsGenWallet.link")}}</a>
+                <!--<a class="nkn-link-load-wallet" @click="toLoadWallet">{{$t("nsGenWallet.link")}}</a>-->
                 <button class="nkn-normal-btn" type="button" @click="nextStep">{{$t("nsGenWallet.nextStepbtn")}}</button>
             </div>
         </div>
