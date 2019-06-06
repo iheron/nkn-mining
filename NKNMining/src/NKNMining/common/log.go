@@ -23,7 +23,7 @@ func InitLog(logfile string) {
 
 	file, err := os.OpenFile(logfile, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
 	if err == nil {
-		Log.Out = io.MultiWriter(file)
+		Log.Out = io.MultiWriter(os.Stdout, file)
 	} else {
 		Log.Info("Failed to log to file, using default stdout")
 	}

@@ -20,7 +20,7 @@ const (
 var nknBinFirstUpdate = true
 
 func nknBinNeedUpdate(version string) bool {
-	if version != storage.NKNSetupInfo.BinVersion {
+	if version == "" && common.NknBinExists() {
 		return true
 	}
 
@@ -32,7 +32,7 @@ func mvNKNBin(from string, to string) error {
 }
 
 func doBinUpdate(toVersion string, url string) (err error) {
-	needRestart := false
+	needRestart := true
 	initialization := nknBinFirstUpdate
 	currentStep := storage.NKNSetupInfo.CurrentStep
 
