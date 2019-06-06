@@ -3,10 +3,10 @@
     <div class="operation-panel nkn-after-clear">
       <div class="operation-connect-status nkn-card-shadow nkn-after-clear">
         <div class="operation-title">{{$t('nsMain.node.title')}}</div>
-        <div v-if="this.$store.state.global.nodeRunning" class="switch-button switch-on" @click="stopMining"><img
+        <!--<div v-if="this.$store.state.global.nodeRunning" class="switch-button switch-on" @click="stopMining"><img
                 src="../assets/img/icon/switch-on.png"/><span>{{$t('nsMain.node.on')}}</span></div>
         <div v-else class="switch-button" @click="startMining"><img src="../assets/img/icon/switch-off.png"/><span>{{$t('nsMain.node.off')}}</span>
-        </div>
+        </div>-->
         <div class="node-info">{{nodeStatus}}</div>
         <div class="node-info">{{versionText}}</div>
         <div class="node-info">{{$t('nsMain.node.nodeStatus.relayCount', {relayCount:relayCount})}}</div>
