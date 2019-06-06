@@ -63,15 +63,15 @@
             errorInfo: '',
           },
 
-          sn: {
-            inputId: inputIdPrefix() + "serialNumber",
-            title: this.$t('nsInput.sn.title'),
-            placeholder: this.$t('nsInput.sn.placeholder'),
-            hasAppend: true,
-            inputType: 'text',
-            maxSize: 40,
-            errorInfo: '',
-          }
+          //sn: {
+          //  inputId: inputIdPrefix() + "serialNumber",
+          //  title: this.$t('nsInput.sn.title'),
+          //  placeholder: this.$t('nsInput.sn.placeholder'),
+          //  hasAppend: true,
+          //  inputType: 'text',
+          //  maxSize: 40,
+          //  errorInfo: '',
+          //}
         }
       }
     },
@@ -142,12 +142,12 @@
       },
 
       nextStep() {
-        let encKey = NSLocalStorage.getReqKey() || this.getSNInput()
+        let encKey = NSLocalStorage.getReqKey() || '' //this.getSNInput()
 
-        if(!encKey || encKey.length !== 40) {
-          this.inputs.sn.errorInfo = this.$t('nsInput.sn.errorInfo')
-          return
-        }
+        //if(!encKey || encKey.length !== 40) {
+        //  this.inputs.sn.errorInfo = this.$t('nsInput.sn.errorInfo')
+        //  return
+        //}
 
         let walletData = this.walletDataGen(encKey)
         if(null === walletData) {
@@ -187,15 +187,15 @@
             errorInfo: '',
           },
 
-          sn: {
-            inputId: inputIdPrefix() + "serialNumber",
-            title: this.$t('nsInput.sn.title'),
-            placeholder: this.$t('nsInput.sn.placeholder'),
-            hasAppend: false,
-            inputType: 'text',
-            maxSize: 40,
-            errorInfo: '',
-          }
+          //sn: {
+          //  inputId: inputIdPrefix() + "serialNumber",
+          //  title: this.$t('nsInput.sn.title'),
+          //  placeholder: this.$t('nsInput.sn.placeholder'),
+          //  hasAppend: false,
+          //  inputType: 'text',
+          //  maxSize: 40,
+          //  errorInfo: '',
+          //}
         }
         return this.$i18n.locale
       }

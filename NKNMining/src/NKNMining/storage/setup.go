@@ -5,7 +5,7 @@ import (
 	"NKNMining/common"
 	"bytes"
 	"encoding/json"
-	"github.com/pborman/uuid"
+	// "github.com/pborman/uuid"
 	"fmt"
 	"os"
 	"sync"
@@ -27,28 +27,30 @@ var saveMutex = &sync.Mutex{}
 func InitSetupInfo()  {
 	NKNSetupInfo.Load()
 
-	if SETUP_STEP_GEN_WALLET == NKNSetupInfo.CurrentStep {
-		if "" == NKNSetupInfo.SerialNumber {
-			sn := "NKN-" + uuid.NewUUID().String()
-			NKNSetupInfo.SerialNumber = sn
-		}
+	// if SETUP_STEP_GEN_WALLET == NKNSetupInfo.CurrentStep {
+	// 	if "" == NKNSetupInfo.SerialNumber {
+	// 		sn := "NKN-" + uuid.NewUUID().String()
+	// 		NKNSetupInfo.SerialNumber = sn
+	// 	}
 
-		if nil == NKNSetupInfo.Save() {
-			if IsRemote {
-				fmt.Println("serial number(sn): " + NKNSetupInfo.SerialNumber)
-			}
-		} else {
-			common.Log.Fatal("initialization NKN setup info failed!")
-		}
-		return
-	} else {
-		if common.IsWindowsOS() {
-			fmt.Println("NKNMining start up")
-		} else {
-			fmt.Println("NKNMining start up in background")
-		}
-		return
-	}
+	// 	if nil == NKNSetupInfo.Save() {
+	// 		if IsRemote {
+	// 			fmt.Println("serial number(sn): " + NKNSetupInfo.SerialNumber)
+	// 		}
+	// 	} else {
+	// 		common.Log.Fatal("initialization NKN setup info failed!")
+	// 	}
+	// 	return
+	// } else {
+	// 	if common.IsWindowsOS() {
+	// 		fmt.Println("NKNMining start up")
+	// 	} else {
+	// 		fmt.Println("NKNMining start up in background")
+	// 	}
+	// 	return
+	// }
+
+	fmt.Println("NKNMining start up in background")
 }
 
 type SetupInfo struct {

@@ -95,11 +95,11 @@
           return
         }
 
-        let encKey = NSLocalStorage.getReqKey() || this.getSNInput()
-        if(!encKey || encKey.length !== 40) {
-          this.inputs.sn.errorInfo = this.$t('nsInput.sn.errorInfo')
-          return
-        }
+        let encKey = NSLocalStorage.getReqKey() || '' //this.getSNInput()
+        //if(!encKey || encKey.length !== 40) {
+        //  this.inputs.sn.errorInfo = this.$t('nsInput.sn.errorInfo')
+        //  return
+        //}
 
         let loginKey = Crypto.AESEnc(accountInfo.password, encKey)
         loginKey = Crypto.HmacSHA256(loginKey, loginKey)
@@ -153,15 +153,15 @@
             errorInfo: '',
           },
 
-          sn: {
-            inputId: inputIdPrefix() + "serialNumber",
-            title: this.$t('nsInput.sn.title'),
-            placeholder: this.$t('nsInput.sn.placeholder'),
-            hasAppend: true,
-            inputType: 'text',
-            maxSize: 40,
-            errorInfo: '',
-          }
+          //sn: {
+          //  inputId: inputIdPrefix() + "serialNumber",
+          //  title: this.$t('nsInput.sn.title'),
+          //  placeholder: this.$t('nsInput.sn.placeholder'),
+          //  hasAppend: true,
+          //  inputType: 'text',
+          //  maxSize: 40,
+          //  errorInfo: '',
+          //}
         }
       }
     },
@@ -178,15 +178,15 @@
             errorInfo: '',
           },
 
-          sn: {
-            inputId: inputIdPrefix() + "serialNumber",
-            title: this.$t('nsInput.sn.title'),
-            placeholder: this.$t('nsInput.sn.placeholder'),
-            hasAppend: true,
-            inputType: 'text',
-            maxSize: 40,
-            errorInfo: '',
-          }
+          //sn: {
+          //  inputId: inputIdPrefix() + "serialNumber",
+          //  title: this.$t('nsInput.sn.title'),
+          //  placeholder: this.$t('nsInput.sn.placeholder'),
+          //  hasAppend: true,
+          //  inputType: 'text',
+          //  maxSize: 40,
+          //  errorInfo: '',
+          //}
         }
 
         return this.$i18n.locale
