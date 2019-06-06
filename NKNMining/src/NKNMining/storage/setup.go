@@ -25,7 +25,7 @@ var IsRemote = false
 var saveMutex = &sync.Mutex{}
 
 func InitSetupInfo()  {
-	NKNSetupInfo.Load()
+	// NKNSetupInfo.Load()
 
 	// if SETUP_STEP_GEN_WALLET == NKNSetupInfo.CurrentStep {
 	// 	if "" == NKNSetupInfo.SerialNumber {
