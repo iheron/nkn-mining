@@ -1,22 +1,22 @@
 package storage
 
 import (
-	"encoding/json"
 	"NKNMining/common"
+	"encoding/json"
 	"io/ioutil"
 )
 
 const walletFile = "/bin/wallet.dat"
 
 type Wallet struct {
-	PasswordHash string `json:"PasswordHash"`
-	IV string `json:"IV"`
-	MasterKey string `json:"MasterKey"`
-	Version string `json:"Version"`
-	Address string `json:"Address"`
-	ProgramHash string `json:"ProgramHash"`
-	PrivateKeyEncrypted string `json:"PrivateKeyEncrypted"`
-	ContractData string `json:"ContractData"`
+	PasswordHash  string `json:"PasswordHash"`
+	IV            string `json:"IV"`
+	MasterKey     string `json:"MasterKey"`
+	Version       string `json:"Version"`
+	Address       string `json:"Address"`
+	ProgramHash   string `json:"ProgramHash"`
+	ContractData  string `json:"ContractData"`
+	SeedEncrypted string `json:"SeedEncrypted"`
 }
 
 func (w *Wallet) Load() error {
@@ -37,11 +37,11 @@ func (w *Wallet) simpleCheck() bool {
 		"" != w.Version &&
 		"" != w.Address &&
 		"" != w.ProgramHash &&
-		"" != w.PrivateKeyEncrypted &&
-		"" != w.ContractData
+		"" != w.ContractData &&
+		"" != w.SeedEncrypted
 }
 
-func (w *Wallet) Save(walletJsonStr string) (checked bool, err error)  {
+func (w *Wallet) Save(walletJsonStr string) (checked bool, err error) {
 	checked = false
 	newWallet := &Wallet{}
 	err = json.Unmarshal([]byte(walletJsonStr), newWallet)
@@ -55,6 +55,6 @@ func (w *Wallet) Save(walletJsonStr string) (checked bool, err error)  {
 	}
 
 	checked = true
-	err = ioutil.WriteFile(common.GetCurrentDirectory() + walletFile, []byte(walletJsonStr), 0666)
+	err = ioutil.WriteFile(common.GetCurrentDirectory()+walletFile, []byte(walletJsonStr), 0666)
 	return
 }
