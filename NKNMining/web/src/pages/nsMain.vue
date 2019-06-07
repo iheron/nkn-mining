@@ -241,7 +241,7 @@
       return
     }
 
-    tempWallet.queryAssetBalance(scope.walletAddress)
+    tempWallet.getBalance(scope.walletAddress)
       .then(function (balance) {
         scope.balance = balance.toString()
 
