@@ -1,19 +1,21 @@
 package apiServerAction
 
 import (
+	"NKNMining/common"
+	"NKNMining/container"
+	"NKNMining/crypto"
 	"NKNMining/server/api/const"
 	"NKNMining/server/api/response"
-	"github.com/gin-gonic/gin"
-	"encoding/json"
 	"NKNMining/storage"
-	"NKNMining/crypto"
+	"encoding/json"
+	"github.com/gin-gonic/gin"
 )
 
 var SetWalletAPI IRestfulAPIAction = &setWallet{}
 
 type setWalletData struct {
 	Wallet string
-	Key string
+	Key    string
 }
 
 type setWallet struct {
@@ -39,7 +41,6 @@ func (s *setWallet) Action(ctx *gin.Context) {
 		response.BadRequest("invalid request format!")
 		return
 	}
-
 
 	walletInfoJsonStr, err := crypto.AesDecrypt(basicData.Data,
 		storage.NKNSetupInfo.GetRequestKey())
@@ -67,6 +68,18 @@ func (s *setWallet) Action(ctx *gin.Context) {
 		storage.NKNSetupInfo.CurrentStep = storage.SETUP_STEP_SUCCESS
 		storage.NKNSetupInfo.WKey = walletInfoData.Key
 		storage.NKNSetupInfo.Save()
+		wKey, err := crypto.AesDecrypt(storage.NKNSetupInfo.WKey, storage.NKNSetupInfo.GetWalletKey())
+		if nil != err {
+			common.Log.Error(err)
+			return
+		}
+
+		_, err = container.Node.AsyncRun([]string{"--no-check-port"}, wKey)
+		//_, err = container.Node.SyncRun([]string{"--no-check-port"}, wKey)
+		if nil != err {
+			common.Log.Error(err)
+			return
+		}
 		response.Success(nil)
 	}
 
