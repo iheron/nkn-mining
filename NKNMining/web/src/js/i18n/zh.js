@@ -84,6 +84,7 @@ module.exports = {
       downloadbtn: '下载',
       transferbtn: '转账',
       addressLabel: '地址',
+      publicKeyStatus: '公钥:',
       beneficiaryStatus: '受益人地址：',
       beneficiaryLabel: '受益人',
       autoTransferBtn: '自动转账',

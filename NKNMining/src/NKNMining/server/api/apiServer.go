@@ -12,6 +12,7 @@ var (
 	apiList = []IRestfulAPIAction{
 		GetStatusAPI,
 		GetVersionAPI,
+		GetPublicKeyAPI,
 		SetWalletAPI,
 		SetWalletConfigAPI,
 		GetWalletConfigAPI,

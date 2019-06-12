@@ -11,6 +11,7 @@
         <div class="node-info">{{versionText}}</div>
         <div class="node-info">{{$t('nsMain.node.nodeStatus.relayCount', {relayCount:relayCount})}}</div>
         <div class="node-info">{{$t('nsMain.node.NKNBlockHeight')}} {{this.nknHeight}}</div>
+        <div class="node-info">{{$t('nsMain.wallet.publicKeyStatus')}} {{this.publicKey}}</div>
         <div class="node-info">{{$t('nsMain.wallet.beneficiaryStatus')}} {{this.walletConfig.BeneficiaryAddr}}</div>
       </div>
 
@@ -302,6 +303,19 @@
     })
   }
 
+  function loopPublicKeyQuery (scope) {
+    Http.getPublicKey(this, function (data) {
+      scope.publicKey = data.Data.PublicKey
+      setTimeout(function () {
+        loopPublicKeyQuery(scope)
+      }, 5000)
+    }, function () {
+      console.log('get public key failed')
+      setTimeout(function () {
+        loopPublicKeyQuery(scope)
+      }, 5000)
+    })
+  }
 
   export default {
     components: {NsLoading},
@@ -364,6 +378,7 @@
       loopMiningRewardsQuery(this)
       loopNodeVersionQuery(this)
       loopWalletConfigQuery(this)
+      loopPublicKeyQuery(this)
       $('[data-toggle="popover"]').popover()
       $('#autoTransferBtn').popover(!this.isAutoTransfer ? 'show': 'hide')
       $('.button-switch button').click(function () {
@@ -552,7 +567,7 @@
   }
 
   .operation-connect-status > div {
-    height: 24px;
+    /*height: 24px;*/
     line-height: 24px;
   }
 
@@ -663,8 +678,10 @@
 
 <style scoped>
   .node-info {
+    height: auto;
+    word-break: break-all;
     clear: both;
-    padding-top: 10px;
+
     font-size: 14px;
     font-weight: 300;
     color: #8d96b4

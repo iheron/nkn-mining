@@ -39,6 +39,9 @@ function getWallet(scope, success = null, fail = null) {
 function getWalletConfig(scope, success = null, fail = null) {
   return axiosRequest(scope, "/get/wallet/config", {}, success, fail)
 }
+function getPublicKey(scope, success = null, fail = null) {
+  return axiosRequest(scope, "/get/publickey", {}, success, fail)
+}
 
 function setWalletConfig(scope, walletInfo, reqKey, success, fail) {
   let setWalletData = new RequestData()
@@ -101,6 +104,7 @@ export default {
   getVersion,
   setWallet,
   getWallet,
+  getPublicKey,
   getWalletConfig,
   setWalletConfig,
   startMining,

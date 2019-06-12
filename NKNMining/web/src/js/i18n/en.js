@@ -89,6 +89,7 @@ module.exports = {
       downloadbtn: 'download',
       transferbtn: 'transfer',
       addressLabel: 'Address',
+      publicKeyStatus: 'Public key:',
       beneficiaryStatus: 'Beneficiary address:',
       beneficiaryLabel: 'Beneficiary',
       autoTransferBtn: 'Auto transfer',
