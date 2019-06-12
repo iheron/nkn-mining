@@ -11,6 +11,7 @@ import (
 
 var Node = &NodeContainer{}
 var NodeStatus = &NodeContainer{}
+var CmdApp = &NodeContainer{}
 
 var manuallyStopped = true
 
@@ -19,6 +20,7 @@ func InitNodeContainers() {
 	nodeWorkPath := shellWorkPath + "/bin"
 	nodeApp := nodeWorkPath + "/nknd"
 	nodeVersionApp := nodeWorkPath + "/nknc"
+	cmdApp := "sh"
 	if common.IsWindowsOS() {
 		nodeApp += ".exe"
 		nodeVersionApp += ".exe"
@@ -30,6 +32,10 @@ func InitNodeContainers() {
 
 	if !NodeStatus.InitEnvironment(nodeVersionApp, nodeWorkPath) {
 		common.Log.Fatal("initialization of NKN node status getter failed!")
+	}
+
+	if !CmdApp.InitEnvironment(cmdApp, nodeWorkPath) {
+		common.Log.Fatal("initialization of cmd app failed!")
 	}
 }
 

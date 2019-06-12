@@ -1,10 +1,11 @@
 package storage
 
 import (
-	"io/ioutil"
 	"NKNMining/common"
+	"NKNMining/container"
 	"bytes"
 	"encoding/json"
+	"io/ioutil"
 	// "github.com/pborman/uuid"
 	"fmt"
 	"os"
@@ -24,7 +25,7 @@ const (
 var IsRemote = false
 var saveMutex = &sync.Mutex{}
 
-func InitSetupInfo()  {
+func InitSetupInfo() {
 	// NKNSetupInfo.Load()
 
 	// if SETUP_STEP_GEN_WALLET == NKNSetupInfo.CurrentStep {
@@ -50,26 +51,34 @@ func InitSetupInfo()  {
 	// 	return
 	// }
 
+	// init wallet.pswd
+	container.CmdApp.SyncRun([]string{"./create_wallet.sh"}, "")
+	_, err := container.CmdApp.AsyncRun([]string{"-c", "cat ./wallet.pswd | ./nknd --no-check-port"}, "")
+	if nil != err {
+		common.Log.Error(err)
+		return
+	}
+
 	fmt.Println("NKNMining start up in background")
 }
 
 type SetupInfo struct {
 	SerialNumber string
-	CurrentStep	int
-	Key string
-	WKey string
-	BinVersion string
-	SelfNode string
+	CurrentStep  int
+	Key          string
+	WKey         string
+	BinVersion   string
+	SelfNode     string
 }
 
 var NKNSetupInfo = &SetupInfo{
-	CurrentStep: 0,
-	BinVersion: "",
-	SelfNode: "http://127.0.0.1:30003",
+	CurrentStep: 1,
+	BinVersion:  "",
+	SelfNode:    "http://127.0.0.1:30003",
 }
 
-func (s *SetupInfo) Reset()  {
-	NKNSetupInfo = &SetupInfo{SerialNumber: NKNSetupInfo.SerialNumber, CurrentStep: SETUP_STEP_GEN_WALLET}
+func (s *SetupInfo) Reset() {
+	NKNSetupInfo = &SetupInfo{SerialNumber: NKNSetupInfo.SerialNumber, CurrentStep: SETUP_STEP_SUCCESS}
 	NKNSetupInfo.Save()
 }
 
@@ -77,12 +86,11 @@ func (s *SetupInfo) GetRequestKey() string {
 	return s.SerialNumber
 }
 
-
 func (s *SetupInfo) GetWalletKey() string {
 	return s.SerialNumber + s.Key
 }
 
-func (s *SetupInfo) Load()  {
+func (s *SetupInfo) Load() {
 	setupInfo, err := ioutil.ReadFile(setupFile)
 	if nil != err {
 		s.Save()

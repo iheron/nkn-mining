@@ -29,7 +29,7 @@ let loadPage = function () {
       case serverStatus.NS_STATUS_GEN_WALLET():
         switch (currentPage) {
           case nsNamespace.SETUP.GEN_WALLET:
-            goToPage(currentPage, nsNamespace.SETUP.GEN_WALLET, $router)
+            goToPage(currentPage, nsNamespace.SIGN_IN, $router)
             break
 
           case nsNamespace.SETUP.LOAD_WALLET:
@@ -37,7 +37,7 @@ let loadPage = function () {
             break
 
           default:
-            goToPage(currentPage, nsNamespace.SETUP.GEN_WALLET, $router)
+            goToPage(currentPage, nsNamespace.SIGN_IN, $router)
             break
         }
         break

@@ -39,6 +39,12 @@
     mixins:[LangMix],
     name: "ns-sign-in",
     mounted() {
+      Http.getWallet(this, function (data) {
+        NSLocalStorage.setWallet( JSON.stringify(data.Data), data.Data.Address)
+      }, function () {
+
+      })
+
       if(NSLocalStorage.checkLogin()) {
         this.$nextTick(function () {
           this.$router.push({name: nsNamespace.MAIN})

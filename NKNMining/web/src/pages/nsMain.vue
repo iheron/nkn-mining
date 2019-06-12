@@ -491,7 +491,7 @@
         this.isAutoTransfer = flag
         NSLocalStorage.setWalletAutoTransfer(flag)
 
-        Http.setWalletConfig(this, {BeneficiaryAddr: flag ? beneficiaryAddr : undefined},NSLocalStorage.getReqKey(),
+        Http.setWalletConfig(this, {BeneficiaryAddr: flag ? beneficiaryAddr : undefined},NSLocalStorage.getReqKey() || '',
           function (data) {
           if (this.$store.state.global.nodeRunning) {
             let _this = this

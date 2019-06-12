@@ -1,22 +1,22 @@
 package main
 
 import (
-	"github.com/urfave/cli"
 	"NKNMining/cli"
 	"NKNMining/common"
 	"NKNMining/config"
-	"os"
-	"time"
-	"NKNMining/storage"
-	"NKNMining/server"
 	"NKNMining/container"
 	"NKNMining/network/rpcRequest"
+	"NKNMining/server"
+	"NKNMining/storage"
 	"NKNMining/task"
-	"path/filepath"
+	"github.com/urfave/cli"
+	"os"
 	"os/exec"
+	"path/filepath"
+	"time"
 )
 
-func startDaemon() (hasNewProcess bool)  {
+func startDaemon() (hasNewProcess bool) {
 	defer func() {
 		if !hasNewProcess {
 			storage.Temp.SaveParentPid(-1)
@@ -36,12 +36,12 @@ func startDaemon() (hasNewProcess bool)  {
 		}
 		storage.Temp.SaveParentPid(ppid)
 
-		filePath,_ := filepath.Abs(os.Args[0])
+		filePath, _ := filepath.Abs(os.Args[0])
 		cmd := exec.Command(filePath, os.Args[1:]...)
 
-		cmd.Stdin=os.Stdin
-		cmd.Stdout=os.Stdout
-		cmd.Stderr=os.Stderr
+		cmd.Stdin = os.Stdin
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
 		cmd.Start()
 
 		return true
@@ -77,24 +77,22 @@ func main() {
 		os.Exit(0)
 	}
 
-
 	//init logs
 	common.InitLog(config.ShellConfig.LogFile)
 
 	//start daemon mode in the os other then windows
-	if !common.IsWindowsOS(){
+	if !common.IsWindowsOS() {
 		if startDaemon() {
 			return
 		}
 	}
-
+	container.InitNodeContainers()
 	storage.InitSetupInfo()
+	storage.NKNSetupInfo.CurrentStep = storage.SETUP_STEP_SUCCESS
 	if common.ShellMutexCheck() {
 		common.Log.Error("NKNMining is already running！")
 		return
 	}
-
-	container.InitNodeContainers()
 
 	rpcRequest.Api.Build()
 
