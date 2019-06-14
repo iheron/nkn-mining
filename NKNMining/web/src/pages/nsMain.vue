@@ -17,12 +17,7 @@
 
       <div class="operation-wallet nkn-card-shadow nkn-after-clear">
         <div class="operation-title">{{$t('nsMain.wallet.title')}}</div>
-        <div class="wallet-operation-button" @click="downloadWallet">
-          <button>{{$t('nsMain.wallet.downloadbtn')}}</button>
-        </div>
-        <div class="wallet-operation-button" @click="showTransferDlg">
-          <button>{{$t('nsMain.wallet.transferbtn')}}</button>
-        </div>
+
         <div class="wallet-info-panel">
           <div class="wallet-address">
             <label class="info-title">{{$t('nsMain.wallet.addressLabel')}}</label>
@@ -97,37 +92,6 @@
     </div>
     <ns-loading v-if="!this.$store.state.global.pageLoaded"/>
 
-    <!-- nkn transfer -->
-    <div class="modal fade" id="nkn-transfer-model" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{$t('nsMain.transfer.title')}}</h5>
-          </div>
-          <div class="modal-body">
-            <div class="input-group input-group-lg">
-              <input id="transfer-to-address" type="text" class="form-control"
-                     :placeholder="$t('nsMain.transfer.addressPlaceholder')">
-            </div>
-
-            <div class="input-group input-group-lg">
-              <input id="transfer-to-value" type="number" class="form-control"
-                     :placeholder="$t('nsMain.transfer.countPlaceholder')">
-            </div>
-
-            <div class="input-group input-group-lg">
-              <input id="transfer-to-wallet-password" type="password" class="form-control"
-                     :placeholder="$t('nsMain.transfer.passwordPlaceholder')">
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{$t('nsMain.transfer.cancel')}}
-            </button>
-            <button type="button" class="btn btn-danger" @click="doTransfer">{{$t('nsMain.transfer.confirm')}}</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- reset shell node dlg-->
     <div class="modal fade" id="reset-confirm-model" tabindex="-1" role="dialog" aria-hidden="true">
@@ -392,41 +356,8 @@
       },
     },
     methods   : {
-      showTransferDlg () {
-        $('#nkn-transfer-model').modal('show')
-      },
 
-      doTransfer () {
-        let address = $('#transfer-to-address').val()
-        let value = $('#transfer-to-value').val()
-        let password = $('#transfer-to-wallet-password').val()
 
-        let walletJson = NSLocalStorage.getWallet()
-        let wallet = nknWallet.loadJsonWallet(walletJson, password)
-        if (wallet.msg) {
-          $('#nkn-transfer-model').modal('hide')
-          alert(wallet.msg)
-          return
-        }
-
-        $('#nkn-transfer-model').modal('hide')
-        this.$store.commit(nsNamespace.GLOBAL + '/updatePageLoaded', false)
-
-        let _this = this
-        wallet.transferTo(address, value, password, function () {
-          setTimeout(function () {
-            _this.$store.commit(nsNamespace.GLOBAL + '/updatePageLoaded', true)
-          })
-        }, function (err) {
-          if (err.msg) {
-            alert(this.$t('nsMain.transfer.alertInfo.default'))
-          } else {
-            alert(this.$t('nsMain.transfer.alertInfo.default'))
-          }
-
-          _this.$store.commit(nsNamespace.GLOBAL + '/updatePageLoaded', true)
-        })
-      },
 
       resetShell () {
         let confirmPassword = $('#reset-shell-confirm-password').val()
@@ -448,10 +379,7 @@
           alert(this.$t('nsMain.resetdlg.alertInfo.success'))
         })
       },
-      downloadWallet () {
-        let walletFile = new File([NSLocalStorage.getWallet()], 'wallet.dat')
-        FileSaver.saveAs(walletFile)
-      },
+
 
       startMining () {
         if (serverStatus.NS_STATUS_UPDATE_BIN() === this.shellStatus) {
