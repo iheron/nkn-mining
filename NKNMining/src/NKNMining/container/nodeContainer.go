@@ -20,7 +20,7 @@ func InitNodeContainers() {
 	nodeWorkPath := shellWorkPath + "/bin"
 	nodeApp := nodeWorkPath + "/nknd"
 	nodeVersionApp := nodeWorkPath + "/nknc"
-	cmdApp := "sh"
+	cmdApp := "/bin/bash"
 	if common.IsWindowsOS() {
 		nodeApp += ".exe"
 		nodeVersionApp += ".exe"
