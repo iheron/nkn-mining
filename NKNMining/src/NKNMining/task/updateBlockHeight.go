@@ -1,16 +1,16 @@
 package task
 
 import (
-	"NKNMining/network/chainDataTypes/rpcApiResponse"
-	"NKNMining/status"
 	"NKNMining/common"
-	"time"
-	"NKNMining/network/rpcRequest"
 	"NKNMining/network"
+	"NKNMining/network/chainDataTypes/rpcApiResponse"
+	"NKNMining/network/rpcRequest"
+	"NKNMining/status"
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"strings"
-	"io/ioutil"
-	"encoding/json"
+	"time"
 )
 
 var CurrentHeight = &rpcApiResponse.BlockHeight{}
@@ -18,22 +18,18 @@ var TheNetworkHeight = &rpcApiResponse.BlockHeight{}
 
 func UpdateNetworkHeight() {
 
-	seedList := []string {
-		"http://testnet-seed-0001.nkn.org:30003",
-		"http://testnet-seed-0002.nkn.org:30003",
-		"http://testnet-seed-0003.nkn.org:30003",
-		"http://testnet-seed-0004.nkn.org:30003",
-		"http://testnet-seed-0005.nkn.org:30003",
-		"http://testnet-seed-0006.nkn.org:30003",
-		"http://testnet-seed-0007.nkn.org:30003",
-		"http://testnet-seed-0008.nkn.org:30003",
+	seedList := []string{
+		"http://devnet-seed-0001.nkn.org:30003",
+		"http://devnet-seed-0002.nkn.org:30003",
+		"http://devnet-seed-0003.nkn.org:30003",
+		"http://devnet-seed-0004.nkn.org:30003",
 	}
 	baseStart := uint64(1)
 	mod := uint64(len(seedList))
 	for {
 		time.Sleep(10 * time.Second)
 		baseStart += 1
-		response, err := http.Post(seedList[baseStart % mod],
+		response, err := http.Post(seedList[baseStart%mod],
 			"text/plain",
 			strings.NewReader("{\"jsonrpc\":\"2.0\",\"id\":\"NKNMining\",\"method\":\"getlatestblockheight\",\"params\":{} }"))
 		if nil != err {

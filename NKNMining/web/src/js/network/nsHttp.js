@@ -42,7 +42,9 @@ function getWalletConfig(scope, success = null, fail = null) {
 function getPublicKey(scope, success = null, fail = null) {
   return axiosRequest(scope, "/get/publickey", {}, success, fail)
 }
-
+function getBalance(scope, success = null, fail = null) {
+  return axiosRequest(scope, "/get/balance", {}, success, fail)
+}
 function setWalletConfig(scope, walletInfo, reqKey, success, fail) {
   let setWalletData = new RequestData()
 
@@ -105,6 +107,7 @@ export default {
   setWallet,
   getWallet,
   getPublicKey,
+  getBalance,
   getWalletConfig,
   setWalletConfig,
   startMining,

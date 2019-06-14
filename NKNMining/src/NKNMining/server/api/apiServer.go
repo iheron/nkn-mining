@@ -13,6 +13,7 @@ var (
 		GetStatusAPI,
 		GetVersionAPI,
 		GetPublicKeyAPI,
+		GetBalanceAPI,
 		SetWalletAPI,
 		SetWalletConfigAPI,
 		GetWalletConfigAPI,

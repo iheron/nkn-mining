@@ -197,29 +197,40 @@
     })
   }
 
-  function loopWalletQuery (scope, tempWallet) {
+  function loopWalletQuery (scope) {
     if (!scope.walletAddress) {
       setTimeout(function () {
-        loopWalletQuery(scope, tempWallet)
+        loopWalletQuery(scope)
       }, 3000)
 
       return
     }
 
-    tempWallet.getBalance(scope.walletAddress)
-      .then(function (balance) {
-        scope.balance = balance.toString()
-
-        setTimeout(function () {
-          loopWalletQuery(scope, tempWallet)
-        }, 3000)
-
-      })
-      .catch(function () {
-        setTimeout(function () {
-          loopWalletQuery(scope, tempWallet)
-        }, 3000)
-      })
+    Http.getBalance(this, function (data) {
+      scope.balance = data.Data.Balance.toString()
+      setTimeout(function () {
+        loopWalletQuery(scope)
+      }, 5000)
+    }, function () {
+      console.log('get balance failed')
+      setTimeout(function () {
+        loopWalletQuery(scope)
+      }, 5000)
+    })
+    // tempWallet.getBalance(scope.walletAddress)
+    //   .then(function (balance) {
+    //     scope.balance = balance.toString()
+    //
+    //     setTimeout(function () {
+    //       loopWalletQuery(scope, tempWallet)
+    //     }, 3000)
+    //
+    //   })
+    //   .catch(function () {
+    //     setTimeout(function () {
+    //       loopWalletQuery(scope, tempWallet)
+    //     }, 3000)
+    //   })
   }
 
   function loopMiningRewardsQuery (scope) {
