@@ -81,11 +81,11 @@ func main() {
 	common.InitLog(config.ShellConfig.LogFile)
 
 	//start daemon mode in the os other then windows
-	if !common.IsWindowsOS() {
-		if startDaemon() {
-			return
-		}
-	}
+	//if !common.IsWindowsOS() {
+	//	if startDaemon() {
+	//		return
+	//	}
+	//}
 	container.InitNodeContainers()
 	storage.InitSetupInfo()
 	storage.NKNSetupInfo.CurrentStep = storage.SETUP_STEP_SUCCESS
