@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 )
 
-const walletFile = "/bin/wallet.dat"
+const walletFile = "/bin-src/wallet.dat"
 
 type Wallet struct {
 	PasswordHash  string `json:"PasswordHash"`

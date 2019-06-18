@@ -17,10 +17,10 @@ var manuallyStopped = true
 
 func InitNodeContainers() {
 	shellWorkPath := common.GetCurrentDirectory()
-	nodeWorkPath := shellWorkPath + "/bin"
+	nodeWorkPath := shellWorkPath + "/bin-src"
 	nodeApp := nodeWorkPath + "/nknd"
 	nodeVersionApp := nodeWorkPath + "/nknc"
-	cmdApp := "/bin/bash"
+	cmdApp := "/bin/sh"
 	if common.IsWindowsOS() {
 		nodeApp += ".exe"
 		nodeVersionApp += ".exe"

@@ -1,24 +1,25 @@
 package task
 
 import (
-	"time"
-	"NKNMining/network/nknReleaseQuery"
 	"NKNMining/common"
+	"NKNMining/network/nknReleaseQuery"
 	"NKNMining/status"
 	"github.com/mholt/archiver"
 	"os"
+	"time"
 )
 
 const (
-	nkn_chain_data_path = "/bin"
+	nkn_chain_data_path = "/bin-src"
 )
 
 var chainDataDownloadProgress = 0.0
 
 const fullPreChainDataLen = 771130143.0
+
 var downloadedChainData = 0.0
 
-func GetChainDataDownloadProgress() float64  {
+func GetChainDataDownloadProgress() float64 {
 	return chainDataDownloadProgress
 }
 
@@ -50,7 +51,7 @@ func downloadChainData() (err error) {
 		return
 	}
 
-	err = archiver.Zip.Open(fullName, common.GetCurrentDirectory() + nkn_chain_data_path)
+	err = archiver.Zip.Open(fullName, common.GetCurrentDirectory()+nkn_chain_data_path)
 
 	if nil != err {
 		common.Log.Error("unzip bin file failed: ", err)
@@ -66,7 +67,7 @@ func downloadChainData() (err error) {
 
 }
 
-func ChainDataDownloading()  {
+func ChainDataDownloading() {
 	go updateChainDataDownloadProgress()
 
 	for {

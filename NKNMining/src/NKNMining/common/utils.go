@@ -8,12 +8,12 @@ import (
 	"fmt"
 	"github.com/itchyny/base58-go"
 	"math/big"
-	"os"
-	"reflect"
-	"path/filepath"
-	"strings"
 	"net"
+	"os"
+	"path/filepath"
+	"reflect"
 	"runtime"
+	"strings"
 )
 
 func FileExist(filename string) bool {
@@ -275,7 +275,6 @@ func GetCurrentDirectory() string {
 	return strings.Replace(dir, "\\", "/", -1)
 }
 
-
 func ShellMutexCheck() bool {
 	ln, err := net.Listen("tcp", NS_MUTEX_PORT)
 
@@ -289,7 +288,7 @@ func ShellMutexCheck() bool {
 
 func NknBinExists() bool {
 	shellWorkPath := GetCurrentDirectory()
-	nodeWorkPath := shellWorkPath + "/bin"
+	nodeWorkPath := shellWorkPath + "/bin-src"
 	nodeApp := nodeWorkPath + "/nknd"
 	if IsWindowsOS() {
 		nodeApp += ".exe"

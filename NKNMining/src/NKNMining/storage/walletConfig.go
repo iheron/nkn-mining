@@ -1,21 +1,23 @@
 package storage
 
 import (
-	"encoding/json"
 	"NKNMining/common"
+	"encoding/json"
 	"io/ioutil"
 )
 
-const walletConfigFile = "/bin/config.json"
+const walletConfigFile = "/bin-src/config.json"
 
 type WalletConfig struct {
-	BeneficiaryAddr string `json:"BeneficiaryAddr,omitempty"`
-	HttpWsPort int `json:"HttpWsPort"`
-	HttpJsonPort int `json:"HttpJsonPort"`
-	SeedList []string `json:"SeedList"`
-	GenesisBlockProposer string `json:"GenesisBlockProposer"`
+	BeneficiaryAddr      string   `json:"BeneficiaryAddr,omitempty"`
+	HttpWsPort           int      `json:"HttpWsPort"`
+	HttpJsonPort         int      `json:"HttpJsonPort"`
+	SeedList             []string `json:"SeedList"`
+	GenesisBlockProposer string   `json:"GenesisBlockProposer"`
 }
+
 var WalletConfigInfo = &WalletConfig{}
+
 func (w *WalletConfig) Load() error {
 	walletData, err := ioutil.ReadFile(common.GetCurrentDirectory() + walletConfigFile)
 	if nil != err {
@@ -26,10 +28,10 @@ func (w *WalletConfig) Load() error {
 	return nil
 }
 
-func (w *WalletConfig) Save(beneficiaryAddr string) error  {
+func (w *WalletConfig) Save(beneficiaryAddr string) error {
 	WalletConfigInfo.Load()
 	WalletConfigInfo.BeneficiaryAddr = beneficiaryAddr
 	walletCfg, err := json.MarshalIndent(WalletConfigInfo, "", "    ")
-	err = ioutil.WriteFile(common.GetCurrentDirectory() + walletConfigFile, walletCfg, 0666)
+	err = ioutil.WriteFile(common.GetCurrentDirectory()+walletConfigFile, walletCfg, 0666)
 	return err
 }
