@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	nkn_bin_file_path = "/bin-src"
+	nkn_bin_file_path = "/bin"
 )
 
 var nknBinFirstUpdate = true

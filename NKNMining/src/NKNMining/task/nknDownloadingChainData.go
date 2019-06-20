@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	nkn_chain_data_path = "/bin-src"
+	nkn_chain_data_path = "/bin"
 )
 
 var chainDataDownloadProgress = 0.0

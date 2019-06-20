@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 )
 
-const walletConfigFile = "/bin-src/config.json"
+const walletConfigFile = "/bin/config.json"
 
 type WalletConfig struct {
 	BeneficiaryAddr      string   `json:"BeneficiaryAddr,omitempty"`

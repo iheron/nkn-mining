@@ -3,7 +3,8 @@ package container
 import (
 	"NKNMining/common"
 	"bytes"
-	"fmt"
+	//"fmt"
+	"os"
 	"os/exec"
 	"sync"
 	"time"
@@ -17,7 +18,7 @@ var manuallyStopped = true
 
 func InitNodeContainers() {
 	shellWorkPath := common.GetCurrentDirectory()
-	nodeWorkPath := shellWorkPath + "/bin-src"
+	nodeWorkPath := shellWorkPath + "/bin"
 	nodeApp := nodeWorkPath + "/nknd"
 	nodeVersionApp := nodeWorkPath + "/nknc"
 	cmdApp := "/bin/sh"
@@ -113,20 +114,22 @@ func (c *NodeContainer) AsyncRun(args []string, input string) (cmd *exec.Cmd, er
 	common.Log.Error("async run")
 	manuallyStopped = false
 	cmd, err = c.buildCommand(args, input)
-	var stdout, stderr bytes.Buffer
-	cmd.Stdout = &stdout
-	cmd.Stderr = &stderr
-	if nil != err {
-		return
-	}
 
 	go func() {
 		for {
+
+			//var stdout, stderr bytes.Buffer
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = os.Stderr
+			if nil != err {
+				return
+			}
+
 			common.Log.Error("run start")
 			cmd.Run()
 			cmd.Wait()
-			fmt.Println(string(stdout.Bytes()))
-			fmt.Println(string(stderr.Bytes()))
+			//fmt.Println(string(stdout.Bytes()))
+			//fmt.Println(string(stderr.Bytes()))
 			common.Log.Error("run end")
 
 			c.mutex.Lock()

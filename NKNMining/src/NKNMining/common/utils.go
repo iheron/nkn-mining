@@ -288,7 +288,7 @@ func ShellMutexCheck() bool {
 
 func NknBinExists() bool {
 	shellWorkPath := GetCurrentDirectory()
-	nodeWorkPath := shellWorkPath + "/bin-src"
+	nodeWorkPath := shellWorkPath + "/bin"
 	nodeApp := nodeWorkPath + "/nknd"
 	if IsWindowsOS() {
 		nodeApp += ".exe"
